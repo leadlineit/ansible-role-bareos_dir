@@ -1,0 +1,16 @@
+#{{ ansible_managed }}
+Storage {
+  Name = {{ item.name }}
+  Address = {{ item.address }}
+  Password = "{{ item.password }}"
+  Device = {{ item.device }}
+  Media Type = File
+  Description = "{{ item.description | default(item.name) }}"
+{% if item.tls_enable is defined %}
+  TLS Enable = {{ item.tls_enable }}
+  TLS Require = {{ item.tls_enable }}
+  TLS CA Certificate File = /etc/bareos/tls/CA.crt
+  TLS Certificate = /etc/bareos/tls/{{ item.name }}.crt
+  TLS Key = /etc/bareos/tls/{{ item.name }}.key
+{% endif %}
+}

@@ -1,0 +1,47 @@
+---
+# defaults file for leadlineit.bareos-sd
+bareos_release: 21
+bareos_dir:
+  director: 
+    - name: your-dir
+      description: Main Bareos Director
+      password: DIRAver@gEStr0ngPaSSw0rd
+      tls_enable: yes
+  storage:
+    - name: your-storage
+      description: Your Bareos Storage
+      address: ip.your.storage
+      password: STORAver@gEStr0ngPaSSw0rd
+      device: your-device
+      tls_enable: yes
+  pool:
+    - name: your-pool
+      description: Pool for backups
+      volume_bytes: 100G
+      volume_count: 20
+      label: label-
+      storage: your-storage
+  fileset:
+    - name: your-fileset
+      description: Fileset for backups
+      vss: True
+      options:
+        - Drive Type = fixed
+        - IgnoreCase = yes
+      include:
+        - /path/to/files
+        - /another/one/path/to/files
+      plugin:
+        - some plugins
+      exlude:
+        - .nobackup
+  schedule:
+    - name: your-schedule
+      description: Schedule for backups
+      run:
+        - Full 1st sat at 21:00
+        - Differential 2nd-5th sat at 21:00
+        - Incremental mon-fri at 21:00
+  messages:
+    - name: your-messages
+      server: your-dir

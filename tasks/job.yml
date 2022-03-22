@@ -1,0 +1,12 @@
+---
+- name: Configure bareos-dir job
+  when: bareos_dir.job is defined
+  template:
+    src: job.conf.j2
+    dest: /etc/bareos/bareos-dir.d/job/{{ item.name }}.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.job }}"
+  notify:
+    - restart bareos-dir service

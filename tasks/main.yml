@@ -1,0 +1,64 @@
+---
+- import_tasks: install.yml
+  tags:
+    - install_bareos_dir
+    - install
+
+- import_tasks: configure.yml
+  tags:
+    - configure_bareos_dir
+    - configure
+
+- import_tasks: storage.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_storage
+    - bareos-dir
+
+- import_tasks: pool.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_pool
+    - bareos-dir
+
+- import_tasks: fileset.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_fileset
+    - bareos-dir
+
+- import_tasks: schedule.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_schedule
+    - bareos-dir
+
+- import_tasks: jobdefs.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_jobdefs
+    - bareos-dir
+
+- import_tasks: openssl.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_openssl
+    - bareos-dir
+
+- import_tasks: client.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_client
+    - bareos-dir
+
+- import_tasks: job.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_job
+    - bareos-dir
+
+- import_tasks: messages.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_messages
+    - bareos-dir

@@ -1,0 +1,18 @@
+#{{ ansible_managed }}
+Pool {
+    Name = {{ item.name }}
+    Description = "{{ item.description | default(item.name) }}"
+    Pool Type = Backup
+    Recycle = yes
+    Volume Retention = 1 month
+    File Retention = 1 month
+    Job Retention = 1 month
+    Maximum Volume Bytes = {{ item.volume_bytes }}
+    Maximum Volumes = {{ item.volume_count }}
+    Action On Purge = Truncate
+    AutoPrune = yes
+    Recycle Oldest Volume = yes
+    Purge Oldest Volume = yes
+    Label Format = "{{ item.label }}"
+    Storage = {{ item.storage }}
+}

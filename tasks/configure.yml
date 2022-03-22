@@ -1,0 +1,20 @@
+---
+- name: Copy Bareos Director configuration file
+  template:
+    src: bareos-dir.conf.j2
+    dest: /etc/bareos/bareos-dir.d/director/bareos-dir.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  notify:
+    - restart bareos-dir service
+
+- name: Copy Bareos bconsole configuration file
+  template:
+    src: bconsole.conf.j2
+    dest: /etc/bareos/bconsole.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  notify:
+    - restart bareos-dir service

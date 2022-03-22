@@ -1,0 +1,12 @@
+---
+- name: Configure bareos-dir fileset
+  when: bareos_dir.fileset is defined
+  template:
+    src: fileset.conf.j2
+    dest: /etc/bareos/bareos-dir.d/fileset/{{ item.name }}.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.fileset }}"
+  notify:
+    - restart bareos-dir service

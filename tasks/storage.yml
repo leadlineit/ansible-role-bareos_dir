@@ -1,0 +1,12 @@
+---
+- name: Configure bareos-dir storage
+  when: bareos_dir.storage is defined
+  template:
+    src: storage.conf.j2
+    dest: /etc/bareos/bareos-dir.d/storage/{{ item.name }}.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.storage }}"
+  notify:
+    - restart bareos-dir service

@@ -1,0 +1,12 @@
+---
+- name: Configure bareos-dir client
+  when: bareos_dir.client is defined
+  template:
+    src: client.conf.j2
+    dest: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.client }}"
+  notify:
+    - restart bareos-dir service

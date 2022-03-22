@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+Schedule {
+  Name = {{ item.name }}
+  Description = "{{ item.description | default(item.name) }}"
+{% if item.run is defined %}
+{% for r in item.run %}
+  Run = {{ r }}
+{% endfor %}
+{% endif%}
+}

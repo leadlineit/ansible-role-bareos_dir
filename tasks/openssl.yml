@@ -1,0 +1,28 @@
+---
+- name: Install/Update OpenSSL
+  apt:
+    update_cache: true
+    name: openssl
+    state: present
+
+- name: Create directories for certificates
+  file: 
+    path: 
+      - "{{ item.path }}"
+      - "{{ item.path }}/certs"
+      - "{{ item.path }}/csr"
+      - "{{ item.path }}/private"
+    state: directory
+    mode: '0770'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.openssl }}"
+
+- name: Copy openssl.cnf to {{ item.path }}
+  template:
+    src: openssl.cnf.j2
+    dest: "{{ item.path }}/openssl.cnf"
+    mode: '0640'
+    owner: bareos
+    group: bareos
+
