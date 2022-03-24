@@ -1,11 +1,12 @@
 ---
 - name: Copy Bareos Director configuration file
   template:
-    src: bareos-dir.conf.j2
+    src: director.conf.j2
     dest: /etc/bareos/bareos-dir.d/director/bareos-dir.conf
     mode: '0640'
     owner: bareos
     group: bareos
+  with_items: "{{ bareos_dir.director }}"
   notify:
     - restart bareos-dir service
 
@@ -16,5 +17,28 @@
     mode: '0640'
     owner: bareos
     group: bareos
+  with_items: "{{ bareos_dir.bconsole }}"
   notify:
     - restart bareos-dir service
+
+- name: Copy Bareos catalog configuration for PostgreSQL
+  template:
+    src: catalog.conf.j2
+    dest: /etc/bareos/bareos-dir.d/catalog/{{ item.name }}.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.catalog }}"
+  notify:
+    - restart bareos-dir service
+
+- name: Set password for Bareos Database user
+  no_log: true
+  become: true
+  become_method: su
+  become_user: postgres
+  postgresql_user: 
+    db: bareos
+    name: bareos
+    password: "{{ item.password | mandatory }}"
+  with_items: "{{ bareos_dir.catalog }}"

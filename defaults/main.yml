@@ -7,6 +7,15 @@ bareos_dir:
       description: Main Bareos Director
       password: DIRAver@gEStr0ngPaSSw0rd
       tls_enable: yes
+  bconsole:
+    - name: your-dir
+      description: Bconsole for Bareos Director
+      address: localhost
+      password: DIRAver@gEStr0ngPaSSw0rd
+  catalog:
+    - name: MyCatalog
+      description: Connect Bareos Director to PostgreSQL Database
+      password: DBAver@gEStr0ngPaSSw0rd
   storage:
     - name: your-storage
       description: Your Bareos Storage
@@ -42,6 +51,14 @@ bareos_dir:
         - Full 1st sat at 21:00
         - Differential 2nd-5th sat at 21:00
         - Incremental mon-fri at 21:00
+  jobdefs:
+    - name: your-jobdefs
+      description: Jobdefs for backups
+      level: Full
+      fileset: your-fileset
+      schedule: your-schedule
+      storage: your-storage
+      pool: your-pool
   messages:
     - name: your-messages
       server: your-dir

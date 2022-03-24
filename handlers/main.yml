@@ -10,3 +10,8 @@
   service:
     name: bareos-dir
     state: restarted
+
+- name: restart postgresql service
+  service:
+    name: postgresql
+    state: restarted

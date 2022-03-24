@@ -1,0 +1,7 @@
+#{{ ansible_managed }}
+Director {
+  Name = {{ item.name }}
+  Address = {{ item.address }}
+  Password = "{{ item.password }}"
+  Description = "{{ item.description | default(item.name) }}"
+}

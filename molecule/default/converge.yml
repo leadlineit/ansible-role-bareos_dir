@@ -7,6 +7,9 @@
         name: gnupg
         state: present
         update_cache: true
+    - name: "Dependency role for PostgreSQL Server"
+      include_role:
+        name: "leadlineit.postgresql"
     - name: "Include leadlineit.bareos_dir"
       include_role:
         name: "leadlineit.bareos_dir"

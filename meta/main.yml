@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: bareos_dir
   namespace: leadlineit
@@ -16,3 +17,7 @@ galaxy_info:
     - backup
     - bareos
     - director
+  dependencies:
+    - role: leadlineit.postgresql
+      tags: postgresql
+        
