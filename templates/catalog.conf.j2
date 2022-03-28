@@ -1,9 +1,9 @@
 #{{ ansible_managed }}
 Catalog {
-  Name = {{ item.name }}
-  Description = "{{ item.description | default(item.name) }}"
-  dbuser = bareos
-  dbname = bareos
-  dbdriver = postgresql
-  dbpassword = "{{ item.password }}"
+    Name = {{ item.name }}
+    Description = "{{ item.description | default(item.name) }}"
+    dbuser = bareos
+    dbname = bareos
+    dbdriver = postgresql
+    dbpassword = "{{ item.password }}"
 }

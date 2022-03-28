@@ -1,0 +1,13 @@
+#{{ ansible_managed }}
+Job {
+    Name = "{{ item.name }}"
+    Client = {{ item.client }}
+    Description = "{{ item.description | default(item.name) }}"
+    JobDefs = {{ item.jobdef }}
+    Enabled = yes
+    Run Script {
+       Console = ".bvfs_update jobid=%i"
+       RunsWhen = After
+       RunsOnClient = No
+    }
+}

@@ -1,17 +1,17 @@
 #{{ ansible_managed }}
 Director {
-  Name = {{ ansible_nodename }}
-  QueryFile = "/usr/lib/bareos/scripts/query.sql"
-  Maximum Concurrent Jobs = 20
-  Password = "{{ item.password }}"
-  Messages = Daemon
-  Auditing = yes
-  Description = "{{ item.description | default(item.name) }}"
+    Name = {{ item.name }}
+    QueryFile = "/usr/lib/bareos/scripts/query.sql"
+    Maximum Concurrent Jobs = 20
+    Password = "{{ item.password }}"
+    Messages = Daemon
+    Auditing = yes
+    Description = "{{ item.description | default(item.name) }}"
 {% if item.tls_enable is defined %}
-  TLS Enable = {{ item.tls_enable }}
-  TLS Require = {{ item.tls_enable }}
-  TLS CA Certificate File = /etc/bareos/tls/CA.crt
-  TLS Certificate = /etc/bareos/tls/{{ ansible_nodename }}.crt
-  TLS Key = /etc/bareos/tls/{{ ansible_nodename }}.key
+    TLS Enable = {{ item.tls_enable }}
+    TLS Require = {{ item.tls_enable }}
+    TLS CA Certificate File = /etc/bareos/tls/CA.crt
+    TLS Certificate = /etc/bareos/tls/{{ item.name }}.crt
+    TLS Key = /etc/bareos/tls/{{ item.name }}.key
 {% endif %}
 }

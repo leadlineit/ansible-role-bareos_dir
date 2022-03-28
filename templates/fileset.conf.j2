@@ -1,39 +1,39 @@
 #{{ ansible_managed }}
 FileSet {
-  Name = {{ item.name }}
-  {% if item.vss is defined %}
-  Enable VSS = {{ item.vss }}
-  {% endif %}
-  Description = "{{ item.description | default(item.name) }}"
-  {% if item.include is defined or item.plugin is defined or item.options is defined%}
-  Include {
-    Options {
-      Signature = MD5 
-      Compression = GZIP
-  {% if item.options is defined %}
-  {% for o in item.options %}
-      {{ o }}
-  {% endfor %}
-  {% endif %}
+    Name = {{ item.name }}
+{% if item.vss is defined %}
+    Enable VSS = {{ item.vss }}
+{% endif %}
+    Description = "{{ item.description | default(item.name) }}"
+{% if item.include is defined or item.plugin is defined or item.options is defined%}
+    Include {
+      Options {
+        Signature = MD5 
+        Compression = GZIP
+{% if item.options is defined %}
+{% for o in item.options %}
+        {{ o }}
+{% endfor %}
+{% endif %}
+      }
+{% if item.include is defined %}
+{% for v in item.include %}
+      File = {{ v }}
+{% endfor %}
+{% endif %}
+      Exclude Dir Containing = .nobackup 
+{% if item.plugin is defined %}
+{% for p in item.plugin %}
+      Plugin = "{{ p }}"
+{% endfor %}
+{% endif %}
     }
-  {% if item.include is defined %}
-  {% for v in item.include %}
-    File = {{ v }}
-  {% endfor %}
-  {% endif %}
-    Exclude Dir Containing = .nobackup 
-  {% if item.plugin is defined %}
-  {% for p in item.plugin %}
-    Plugin = "{{ p }}"
-  {% endfor %}
-  {% endif %}
-  }
-  {% endif %}
-  {% if item.exclude is defined %}
-  Exclude {
-  {% for v in item.exclude %}
-    File = {{ v }}
-  {% endfor %}
-  }
-  {% endif %}
+{% endif %}
+{% if item.exclude is defined %}
+    Exclude {
+{% for v in item.exclude %}
+      File = {{ v }}
+{% endfor %}
+    }
+{% endif %}
 }

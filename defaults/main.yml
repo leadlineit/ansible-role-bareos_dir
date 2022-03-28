@@ -3,12 +3,12 @@
 bareos_release: 21
 bareos_dir:
   director: 
-    - name: your-dir
+    - name: "{{ ansible_nodename }}"
       description: Main Bareos Director
       password: DIRAver@gEStr0ngPaSSw0rd
       tls_enable: yes
   bconsole:
-    - name: your-dir
+    - name: "{{ ansible_nodename }}"
       description: Bconsole for Bareos Director
       address: localhost
       password: DIRAver@gEStr0ngPaSSw0rd
@@ -59,6 +59,18 @@ bareos_dir:
       schedule: your-schedule
       storage: your-storage
       pool: your-pool
+  client:
+    - name: your-client
+      description: Your client configuration
+      address: 10.0.0.1
+      fdport: 9102
+      passive: yes
+      tls_enable: yes
+  job:
+    - name: client-job
+      description: Job for client
+      client: client.name.com
+      jobdef: your-jobdefs
   messages:
     - name: your-messages
       server: your-dir
