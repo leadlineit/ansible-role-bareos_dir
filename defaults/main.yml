@@ -74,3 +74,11 @@ bareos_dir:
   messages:
     - name: your-messages
       server: your-dir
+  openssl:
+    - path: /etc/bareos/tls
+      country: UA
+      province: CV
+      locality: UA
+      organization: IT
+      unit: 6nsh
+      email: test@gmail.com

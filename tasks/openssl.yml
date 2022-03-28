@@ -5,15 +5,30 @@
     name: openssl
     state: present
 
-- name: Create directories for certificates
+- name: Create directory for certificates
+  no_log: true
   file: 
-    path: 
-      - "{{ item.path }}"
-      - "{{ item.path }}/certs"
-      - "{{ item.path }}/csr"
-      - "{{ item.path }}/private"
+    path: "{{ item.path }}/certs"
     state: directory
-    mode: '0770'
+    mode: '0755'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.openssl }}"
+
+- name: Create directory for csr
+  file: 
+    path: "{{ item.path }}/csr"
+    state: directory
+    mode: '0755'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.openssl }}"
+
+- name: Create directory for private keys
+  file: 
+    path: "{{ item.path }}/private"
+    state: directory
+    mode: '0755'
     owner: bareos
     group: bareos
   with_items: "{{ bareos_dir.openssl }}"
@@ -25,3 +40,4 @@
     mode: '0640'
     owner: bareos
     group: bareos
+  with_items: "{{ bareos_dir.openssl }}"

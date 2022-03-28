@@ -57,8 +57,8 @@
     - bareos_dir_messages
     - bareos-dir
 
-# - import_tasks: openssl.yml
-#   tags:
-#     - configure_bareos_dir
-#     - bareos_dir_openssl
-#     - bareos-dir
+- import_tasks: openssl.yml
+  tags:
+    - configure_bareos_dir
+    - bareos_dir_openssl
+    - bareos-dir
