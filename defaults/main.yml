@@ -1,5 +1,6 @@
 ---
-# defaults file for leadlineit.bareos-sd
+bareos_keyserver: keyserver.ubuntu.com
+bareos_apt_key: E01957D6C9FED482
 bareos_release: 21
 bareos_dir:
   director: 
@@ -66,6 +67,15 @@ bareos_dir:
       fdport: 9102
       passive: yes
       tls_enable: yes
+      jobs:
+        - name: client-job1
+          description: Job1 for client
+          client: client.name.com
+          jobdef: your-jobdefs1
+        - name: client-job2
+          description: Job2 for client
+          client: client.name.com
+          jobdef: your-jobdefs2
   job:
     - name: client-job
       description: Job for client

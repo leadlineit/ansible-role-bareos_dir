@@ -16,6 +16,9 @@ Role Variables
 The variables that can be passed to this role and a brief description about them are as follows:
 
 ```yaml
+    bareos_keyserver: keyserver.ubuntu.com
+    bareos_apt_key: E01957D6C9FED482
+    bareos_release: 21
     bareos_dir:
       
 ```

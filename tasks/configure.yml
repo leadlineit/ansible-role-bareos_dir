@@ -32,10 +32,15 @@
   notify:
     - restart bareos-dir service
 
-- name: Set password for Bareos Database user
+- name: Enable packages gather facts
+  package_facts:
+    manager: auto
+
+- name: Set password for Bareos Database user with sudo packages (skip if sudo isn't installed)
+  when: "'sudo' in ansible_facts.packages"
   no_log: true
   become: true
-  become_method: su
+  become_method: sudo
   become_user: postgres
   postgresql_user: 
     db: bareos

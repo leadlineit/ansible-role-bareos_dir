@@ -1,6 +1,4 @@
 ---
-# handlers file for mysql_server
-
 - name: enable bareos-dir service
   service:
     name: bareos-dir

@@ -7,19 +7,21 @@
   with_items:
     - apt-transport-https
     - gnupg2
-    - software-properties-common
 
 - name: Add official Bareos package authentication key
   apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: E01957D6C9FED482
+    keyserver: "{{ bareos_keyserver }}"
+    id: "{{ bareos_apt_key }}"
     state: present
 
 - name: Add the Bareos repository to APT sources
-  template:
-    src: bareos.list.j2
-    dest: /etc/apt/sources.list.d/bareos.list
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    filename: bareos
     mode: '0644'
+  with_items:
+    - "deb https://download.bareos.org/bareos/release/{{ bareos_release }}/Debian_{{ ansible_distribution_major_version }} /"
 
 - name: Install Bareos Director Daemon
   apt:

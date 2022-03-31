@@ -1,7 +1,14 @@
 #{{ ansible_managed }}
 Director {
     Name = {{ item.name }}
-    Address = {{ item.address }}
+    Address = {{ item.address | default("localhost") }}
     Password = "{{ item.password }}"
     Description = "{{ item.description | default(item.name) }}"
+{% if item.tls_enable is defined %}    
+    TLS Enable = {{ item.tls_enable }}
+    TLS Require = {{ item.tls_enable }}
+    TLS CA Certificate File = /etc/bareos/tls/ca.crt
+    TLS Certificate = /etc/bareos/tls/"{{ ansible_nodename }}".crt
+    TLS Key = /etc/bareos/tls/"{{ ansible_nodename }}".key
+{% endif %}
 }

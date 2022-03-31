@@ -2,18 +2,12 @@
 Client {
     Name = {{ item.name }}
     Address = {{ item.address }}
-    FDPort = {{ item.fdport }}
+    FDPort = {{ item.fdport | default("9102") }}
     Description = "{{ item.description | default(item.name) }}"
     File Retention = 15 days
     Auto Prune = yes
-{% if item.password is defined %}
-    Password = "{ item.password }"
-{% else %}
-    Password = ""
-{% endif %}
-{% if item.passive is defined %}
-    Passive = {{ item.passive }}
-{% endif %}
+    Password = "{ item.password | default("") }"
+    Passive = {{ item.passive | default("no") }}
 {% if item.tls_enable is defined %}    
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}
@@ -22,3 +16,21 @@ Client {
     TLS Key = /etc/bareos/tls/"{{ ansible_nodename }}".key
 {% endif %}
 }
+
+{% if item.jobs is defined %}
+{% for j in item.jobs %}
+
+Job {
+    Name = "{{ j.name }}"
+    Client = {{ j.client }}
+    Description = "{{ j.description | default(j.name) }}"
+    JobDefs = {{ j.jobdef }}
+    Enabled = yes
+    Run Script {
+       Console = ".bvfs_update jobid=%i"
+       RunsWhen = After
+       RunsOnClient = No
+    }
+}
+{% endfor %}
+{% endif %}
