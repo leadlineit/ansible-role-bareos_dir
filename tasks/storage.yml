@@ -1,6 +1,5 @@
 ---
 - name: Configure bareos-dir storage
-  when: bareos_dir.storage is defined
   template:
     src: storage.conf.j2
     dest: /etc/bareos/bareos-dir.d/storage/{{ item.name }}.conf

@@ -1,6 +1,5 @@
 ---
 - name: Configure bareos-dir pool
-  when: bareos_dir.pool is defined
   template:
     src: pool.conf.j2
     dest: /etc/bareos/bareos-dir.d/pool/{{ item.name }}.conf

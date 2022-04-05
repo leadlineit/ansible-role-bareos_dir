@@ -3,6 +3,7 @@ bareos_keyserver: keyserver.ubuntu.com
 bareos_apt_key: E01957D6C9FED482
 bareos_release: 21
 bareos_dir:
+  tls_path: /etc/bareos/tls
   director: 
     - name: "{{ ansible_nodename }}"
       description: Main Bareos Director
@@ -85,10 +86,13 @@ bareos_dir:
     - name: your-messages
       server: your-dir
   openssl:
-    - path: /etc/bareos/tls
-      country: UA
+    - country: UA
       province: CV
       locality: UA
       organization: IT
       unit: 6nsh
       email: test@gmail.com
+  tls_clients:
+    - name: cl1.com
+    - name: cl2.com
+    - name: client3.ua

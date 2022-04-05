@@ -8,7 +8,7 @@ default_ca = CA_default
 
 [ CA_default ]
 # Directory and file locations.
-dir               = /etc/bareos/tls
+dir               = {{ bareos_dir.tls_path | default("/etc/bareos/tls") }}
 certs             = $dir/certs
 crl_dir           = $dir/crl
 database          = $dir/index.txt

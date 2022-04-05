@@ -1,6 +1,5 @@
 ---
 - name: Configure bareos-dir jobdefs
-  when: bareos_dir.jobdefs is defined
   template:
     src: jobdefs.conf.j2
     dest: /etc/bareos/bareos-dir.d/jobdefs/{{ item.name }}.conf

@@ -9,55 +9,64 @@
     - configure_bareos_dir
     - configure
 
-- import_tasks: storage.yml
-  tags:
-    - configure_bareos_dir
-    - bareos_dir_storage
-    - bareos-dir
+# - import_tasks: storage.yml
+#   when: bareos_dir.storage is defined
+#   tags:
+#     - configure_bareos_dir
+#     - bareos_dir_storage
+#     - bareos-dir
 
-- import_tasks: pool.yml
-  tags:
-    - configure_bareos_dir
-    - bareos_dir_pool
-    - bareos-dir
+# - import_tasks: pool.yml
+#   when: bareos_dir.pool is defined
+#   tags:
+#     - configure_bareos_dir
+#     - bareos_dir_pool
+#     - bareos-dir
 
-- import_tasks: fileset.yml
-  tags:
-    - configure_bareos_dir
-    - bareos_dir_fileset
-    - bareos-dir
+# - import_tasks: fileset.yml
+#   when: bareos_dir.fileset is defined
+#   tags:
+#     - configure_bareos_dir
+#     - bareos_dir_fileset
+#     - bareos-dir
 
-- import_tasks: schedule.yml
-  tags:
-    - configure_bareos_dir
-    - bareos_dir_schedule
-    - bareos-dir
+# - import_tasks: schedule.yml
+#   when: bareos_dir.schedule is defined
+#   tags:
+#     - configure_bareos_dir
+#     - bareos_dir_schedule
+#     - bareos-dir
 
-- import_tasks: jobdefs.yml
-  tags:
-    - configure_bareos_dir
-    - bareos_dir_jobdefs
-    - bareos-dir
+# - import_tasks: jobdefs.yml
+#   when: bareos_dir.jobdefs is defined
+#   tags:
+#     - configure_bareos_dir
+#     - bareos_dir_jobdefs
+#     - bareos-dir
 
-- import_tasks: client.yml
-  tags:
-    - configure_bareos_dir
-    - bareos_dir_client
-    - bareos-dir
+# - import_tasks: client.yml
+#   when: bareos_dir.client is defined
+#   tags:
+#     - configure_bareos_dir
+#     - bareos_dir_client
+#     - bareos-dir
 
-- import_tasks: job.yml
-  tags:
-    - configure_bareos_dir
-    - bareos_dir_job
-    - bareos-dir
+# - import_tasks: job.yml
+#   when: bareos_dir.job is defined
+#   tags:
+#     - configure_bareos_dir
+#     - bareos_dir_job
+#     - bareos-dir
 
-- import_tasks: messages.yml
-  tags:
-    - configure_bareos_dir
-    - bareos_dir_messages
-    - bareos-dir
+# - import_tasks: messages.yml
+#   when: bareos_dir.messages is defined
+#   tags:
+#     - configure_bareos_dir
+#     - bareos_dir_messages
+#     - bareos-dir
 
 - import_tasks: openssl.yml
+  when: bareos_dir.openssl is defined
   tags:
     - configure_bareos_dir
     - bareos_dir_openssl

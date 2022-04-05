@@ -1,6 +1,5 @@
 ---
 - name: Configure bareos-dir fileset
-  when: bareos_dir.fileset is defined
   template:
     src: fileset.conf.j2
     dest: /etc/bareos/bareos-dir.d/fileset/{{ item.name }}.conf

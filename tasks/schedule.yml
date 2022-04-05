@@ -1,6 +1,5 @@
 ---
 - name: Configure bareos-dir schedule
-  when: bareos_dir.schedule is defined
   template:
     src: schedule.conf.j2
     dest: /etc/bareos/bareos-dir.d/schedule/{{ item.name }}.conf

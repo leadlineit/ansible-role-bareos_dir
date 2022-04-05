@@ -1,6 +1,5 @@
 ---
 - name: Configure bareos-dir clients
-  when: bareos_dir.client is defined
   template:
     src: client.conf.j2
     dest: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf

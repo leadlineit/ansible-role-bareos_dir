@@ -1,6 +1,5 @@
 ---
 - name: Configure bareos-dir messages
-  when: bareos_dir.messages is defined
   template:
     src: messages.conf.j2
     dest: /etc/bareos/bareos-dir.d/messages/{{ item.name }}.conf
