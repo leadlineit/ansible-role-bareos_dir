@@ -1,0 +1,61 @@
+---
+- name: Checking if clients certificates are exists
+  uri:
+    url: "{{ bareos_dir.hashicorp_vault.address }}/v1/{{ item.client }}/data/hosts/{{ item.name }}/bareos-certs"
+    headers:
+      X-Vault-Token: "{{ bareos_dir.hashicorp_vault.token }}"
+      Content-Type: "application/json"
+  register: cnout
+  failed_when: false
+  loop: "{{ bareos_dir.hashicorp_vault.clients }}"
+
+- name: Create list for status codes
+  set_fact:
+    stat_list: "{{ stat_list | default([]) + [ { 'cname': item.item.name, 'status': item.status, 'client': item.item.client, 'ttl': item.item.ttl } ] }}"
+  with_items: "{{ cnout.results }}"
+  loop_control:
+    label: 
+      - "{{ item.item.name }}"
+      - "{{ item.status }}"
+
+- name: Generate clients certificate's with Hashicorp Vault
+  uri:
+    url: "{{ bareos_dir.hashicorp_vault.address }}/v1/{{ bareos_dir.hashicorp_vault.path }}/issue/{{ item.client }}"
+    method: POST
+    headers:
+      X-Vault-Token: "{{ bareos_dir.hashicorp_vault.token }}"
+      Content-Type: "application/json"
+    return_content: yes
+    body_format: json
+    body:
+      common_name: "{{ item.cname }}"
+      ttl: "{{ item.ttl }}"
+  when: item.status == 404
+  with_items: "{{ stat_list }}"
+  register: output
+
+- name: Create list for serial keys
+  set_fact:
+    cert_list: "{{ cert_list | default([]) + [ { 'cname': item.item.cname, 'status': item.item.status, 'client': item.item.client, 'ttl': item.item.ttl, 'serial_number': item.json.data.serial_number } ] }}"
+  when: item.item.status == 404
+  with_items: "{{ output.results }}"
+  loop_control:
+    label:
+      - "{{ item.item.cname }}"
+
+- name: Add clients serial number to Hashicorp Vault
+  uri:
+    url: "{{ bareos_dir.hashicorp_vault.address }}/v1/{{ item.client }}/data/hosts/{{ item.cname }}/bareos-certs"
+    method: POST
+    headers:
+      X-Vault-Token: "{{ bareos_dir.hashicorp_vault.token }}"
+      Content-Type: "application/json"
+    body_format: json
+    body:
+      data:
+        cname: "{{ item.cname }}"
+        serial_number: "{{ item.serial_number }}"
+  when: 
+    - item is defined
+    - item.status == 404
+  with_items: "{{ cert_list }}"
