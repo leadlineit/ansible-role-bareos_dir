@@ -1,7 +1,7 @@
 # Ansible Galaxy role for install and configure Bareos Director Daemon.
 
 ![Build Status](https://github.com/leadlineit/ansible-role-bareos_dir/actions/workflows/ansible-galaxy-ci.yml/badge.svg)
-[![Galaxy Role](https://img.shields.io/badge/Ansible--Galaxy-leadlineit.bareos_dir-blue.svg)](https://galaxy.ansible.com/leadlineit/bareos_dir/)
+[![Galaxy Role](https://img.shields.io/badge/Ansible--Galaxy-leadlineit.bareos_dir-blue.svg?logo=ansible&logoColor=white)](https://galaxy.ansible.com/leadlineit/bareos_dir/)
 
 This role helps to install and configure Bareos Director Daemon to Debian (buster/bullseye).
 
