@@ -2,7 +2,7 @@
 Storage {
     Name = {{ item.name }}
     Address = {{ item.address }}
-    Password = "{{ item.password }}"
+    Password = "{{ item.password | default() }}"
     Device = {{ item.device }}
     Media Type = File
     Description = "{{ item.description | default(item.name) }}"

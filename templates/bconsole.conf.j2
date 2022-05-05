@@ -2,7 +2,7 @@
 Director {
     Name = {{ item.name }}
     Address = {{ item.address | default("localhost") }}
-    Password = "{{ item.password }}"
+    Password = "{{ item.password | default() }}"
     Description = "{{ item.description | default(item.name) }}"
 {% if item.tls_enable is defined %}    
     TLS Enable = {{ item.tls_enable }}
