@@ -8,4 +8,4 @@
     group: bareos
   with_items: "{{ bareos_dir.schedule }}"
   notify:
-    - restart bareos-dir service
+    - reload bareos-dir service

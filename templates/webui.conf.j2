@@ -1,0 +1,7 @@
+#{{ ansible_managed }}
+Console {
+    Name = {{ item.name }}
+    Password = "{{ item.password }}"
+    Profile = "{{ item.profile }}"
+    TlsEnable = {{ item.tls_enabled | default("false") }}
+}

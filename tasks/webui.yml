@@ -1,0 +1,22 @@
+---
+- name: Install Bareos WebUI
+  apt:
+    update_cache: true
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - bareos-webui
+  notify:
+    - reload bareos-dir service
+
+- name: Configure bareos-webui console
+  no_log: true
+  template:
+    src: webui.conf.j2
+    dest: /etc/bareos/bareos-dir.d/console/{{ item.name }}.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.webui }}"
+  notify:
+    - reload bareos-dir service

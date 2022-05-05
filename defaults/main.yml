@@ -3,6 +3,7 @@ bareos_keyserver: keyserver.ubuntu.com
 bareos_apt_key: E01957D6C9FED482
 bareos_release: 21
 bareos_tls_path: /etc/bareos/tls
+
 bareos_dir:
   director: 
     - name: "{{ ansible_nodename }}"
@@ -14,6 +15,16 @@ bareos_dir:
       description: Bconsole for Bareos Director
       address: localhost
       password: DIRAver@gEStr0ngPaSSw0rd
+  webui:
+    - name: admin_new
+      password: WebUIAver@gEStr0ngPaSSw0rd1
+      profile: webui-admin
+    - name: user1
+      password: WebUIAver@gEStr0ngPaSSw0rd2
+      profile: operator
+    - name: user2
+      password: WebUIAver@gEStr0ngPaSSw0rd3
+      profile: webui-readonly
   catalog:
     - name: MyCatalog
       description: Connect Bareos Director to PostgreSQL Database
