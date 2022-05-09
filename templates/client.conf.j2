@@ -12,8 +12,8 @@ Client {
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}
     TLS CA Certificate File = {{ bareos_tls_path }}/CA.crt
-    TLS Certificate = {{ bareos_tls_path }}/{{ ansible_nodename }}.crt
-    TLS Key = {{ bareos_tls_path }}/{{ ansible_nodename }}.key
+    TLS Certificate = {{ bareos_tls_path }}/{{ bareos_tls_certs }}.crt
+    TLS Key = {{ bareos_tls_path }}/{{ bareos_tls_certs }}.key
 {% endif %}
 }
 
