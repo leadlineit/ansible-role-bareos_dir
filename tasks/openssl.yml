@@ -63,20 +63,20 @@
     access_time: preserve
 
 - name: Generate private key for CA
-  community.crypto.openssl_privatekey:
+  community.crypto.x509_certificate:
     path: "{{ bareos_dir.tls_path }}/CA.key"
     size: 4096
     state: present
 
 - name: Generate csr for CA
-  community.crypto.openssl_csr:
+  community.crypto.x509_certificate:
     path: "{{ bareos_dir.tls_path }}/CA.csr"
     privatekey_path: "{{ bareos_dir.tls_path }}/CA.key"
     common_name: "{{ ansible_nodename }}"
     state: present
 
 - name: Generate CA certificate
-  community.crypto.openssl_certificate:
+  community.crypto.x509_certificate:
     provider: selfsigned
     path: "{{ bareos_dir.tls_path }}/CA.crt"
     privatekey_path: "{{ bareos_dir.tls_path }}/CA.key"
@@ -84,14 +84,14 @@
     state: present
 
 - name: Generate private key's for clients
-  community.crypto.openssl_privatekey:
+  community.crypto.x509_certificate:
     path: "{{ bareos_dir.tls_path }}/private/{{ item.name }}.key"
     size: 4096
     state: present
   loop: "{{ bareos_dir.tls_clients }}"
 
 - name: Generate csr's for clients
-  community.crypto.openssl_csr:
+  community.crypto.x509_certificate:
     path: "{{ bareos_dir.tls_path }}/csr/{{ item.name }}.csr"
     privatekey_path: "{{ bareos_dir.tls_path }}/private/{{ item.name }}.key"
     common_name: "{{ item.name }}"
@@ -99,7 +99,7 @@
   loop: "{{ bareos_dir.tls_clients }}"
 
 - name: Generate clients certificate's
-  community.crypto.openssl_certificate:
+  community.crypto.x509_certificate:
     provider: ownca
     path: "{{ bareos_dir.tls_path }}/certs/{{ item.name }}.crt"
     csr_path: "{{ bareos_dir.tls_path }}/csr/{{ item.name }}.csr"
