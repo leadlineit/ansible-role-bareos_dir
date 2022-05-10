@@ -1,6 +1,6 @@
 ---
 - name: Configure bareos-dir schedule
-  template:
+  ansible.builtin.template:
     src: schedule.conf.j2
     dest: /etc/bareos/bareos-dir.d/schedule/{{ item.name }}.conf
     mode: '0640'

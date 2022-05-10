@@ -1,6 +1,6 @@
 ---
 - name: Configure bareos-dir messages
-  template:
+  ansible.builtin.template:
     src: messages.conf.j2
     dest: /etc/bareos/bareos-dir.d/messages/{{ item.name }}.conf
     mode: '0640'

@@ -1,6 +1,6 @@
 ---
 - name: Configure bareos-dir storage
-  template:
+  ansible.builtin.template:
     src: storage.conf.j2
     dest: /etc/bareos/bareos-dir.d/storage/{{ item.name }}.conf
     mode: '0640'

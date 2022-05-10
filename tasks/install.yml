@@ -1,6 +1,6 @@
 ---
 - name: Update repo cache and install a few prerequisite packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: present
     update_cache: true
@@ -9,13 +9,13 @@
     - gnupg2
 
 - name: Add official Bareos package authentication key
-  apt_key:
+  ansible.builtin.apt_key:
     keyserver: "{{ bareos_keyserver }}"
     id: "{{ bareos_apt_key }}"
     state: present
 
 - name: Add the Bareos repository to APT sources
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "{{ item }}"
     state: present
     filename: bareos
@@ -24,7 +24,7 @@
     - "deb https://download.bareos.org/bareos/release/{{ bareos_release }}/Debian_{{ ansible_distribution_major_version }} /"
 
 - name: Install Bareos Director Daemon
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     name: "{{ item }}"
     state: present

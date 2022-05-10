@@ -1,13 +1,15 @@
 ---
 - name: Install/Update OpenSSL
-  apt:
-    update_cache: true
-    name: openssl
+  ansible.builtin.apt:
+    name: "{{ item }}"
     state: present
+    update_cache: true
+  with_items:
+    - openssl
 
 - name: Create directory for certificates
   no_log: true
-  file: 
+  ansible.builtin.file: 
     path: "{{ bareos_dir.tls_path }}/certs"
     state: directory
     mode: '0755'
@@ -16,7 +18,7 @@
 
 - name: Create directory for csr
   no_log: true
-  file: 
+  ansible.builtin.file: 
     path: "{{ bareos_dir.tls_path }}/csr"
     state: directory
     mode: '0755'
@@ -25,7 +27,7 @@
 
 - name: Create directory for private keys
   no_log: true
-  file: 
+  ansible.builtin.file: 
     path: "{{ bareos_dir.tls_path }}/private"
     state: directory
     mode: '0755'
@@ -33,7 +35,7 @@
     group: bareos
 
 - name: Copy openssl.cnf to openssl directory for Bareos
-  template:
+  ansible.builtin.template:
     src: openssl.cnf.j2
     dest: "{{ bareos_dir.tls_path }}/openssl.cnf"
     mode: '0644'
@@ -44,14 +46,14 @@
     OPENSSL_CONF: "/etc/bareos/tls/openssl.cnf"
 
 - name: Add serial file for openssl
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: "{{ bareos_dir.tls_path }}/serial"
     mode: '0644'
     line: 01
     create: true
 
 - name: Add index.txt file for openssl
-  file:
+  ansible.builtin.file:
     dest: "{{ bareos_dir.tls_path }}/index.txt"
     state: touch
     mode: '0644'
@@ -61,20 +63,20 @@
     access_time: preserve
 
 - name: Generate private key for CA
-  openssl_privatekey:
+  community.crypto.openssl_privatekey:
     path: "{{ bareos_dir.tls_path }}/CA.key"
     size: 4096
     state: present
 
 - name: Generate csr for CA
-  openssl_csr:
+  community.crypto.openssl_csr:
     path: "{{ bareos_dir.tls_path }}/CA.csr"
     privatekey_path: "{{ bareos_dir.tls_path }}/CA.key"
     common_name: "{{ ansible_nodename }}"
     state: present
 
 - name: Generate CA certificate
-  openssl_certificate:
+  community.crypto.openssl_certificate:
     provider: selfsigned
     path: "{{ bareos_dir.tls_path }}/CA.crt"
     privatekey_path: "{{ bareos_dir.tls_path }}/CA.key"
@@ -82,14 +84,14 @@
     state: present
 
 - name: Generate private key's for clients
-  openssl_privatekey:
+  community.crypto.openssl_privatekey:
     path: "{{ bareos_dir.tls_path }}/private/{{ item.name }}.key"
     size: 4096
     state: present
   loop: "{{ bareos_dir.tls_clients }}"
 
 - name: Generate csr's for clients
-  openssl_csr:
+  community.crypto.openssl_csr:
     path: "{{ bareos_dir.tls_path }}/csr/{{ item.name }}.csr"
     privatekey_path: "{{ bareos_dir.tls_path }}/private/{{ item.name }}.key"
     common_name: "{{ item.name }}"
@@ -97,7 +99,7 @@
   loop: "{{ bareos_dir.tls_clients }}"
 
 - name: Generate clients certificate's
-  openssl_certificate:
+  community.crypto.openssl_certificate:
     provider: ownca
     path: "{{ bareos_dir.tls_path }}/certs/{{ item.name }}.crt"
     csr_path: "{{ bareos_dir.tls_path }}/csr/{{ item.name }}.csr"

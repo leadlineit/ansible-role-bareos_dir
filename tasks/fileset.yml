@@ -1,6 +1,6 @@
 ---
 - name: Configure bareos-dir fileset
-  template:
+  ansible.builtin.template:
     src: fileset.conf.j2
     dest: /etc/bareos/bareos-dir.d/fileset/{{ item.name }}.conf
     mode: '0640'

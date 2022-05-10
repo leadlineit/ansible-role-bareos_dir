@@ -16,6 +16,7 @@ Role Variables
 The variables that can be passed to this role and a brief description about them are as follows:
 
 ```yaml
+---
 bareos_keyserver: keyserver.ubuntu.com
 bareos_apt_key: E01957D6C9FED482
 bareos_release: 21
@@ -123,6 +124,7 @@ Also you cah use HashiCorp Vault for store certificates (when you use Bareos wit
 Variable for this:
 
 ```yaml
+---
   hashicorp_vault:
     address: your.vault.com
     token: your_token
@@ -146,6 +148,7 @@ Variable 'bareos_release' are optional.
 Default values for optional variable:
 
 ```yaml
+---
 bareos_release: 21
 ```
 
@@ -155,6 +158,7 @@ Dependencies
 First, for this role you need to install PostgreSQL Server. You can do it yourself, or by using my dependency role.
 
 ```yaml
+---
 dependencies:
   - role: leadlineit.postgresql
     tags: postgresql

@@ -1,6 +1,6 @@
 ---
 - name: Copy Bareos Director configuration file
-  template:
+  ansible.builtin.template:
     src: director.conf.j2
     dest: /etc/bareos/bareos-dir.d/director/bareos-dir.conf
     mode: '0640'
@@ -11,7 +11,7 @@
     - restart bareos-dir service
 
 - name: Copy Bareos bconsole configuration file
-  template:
+  ansible.builtin.template:
     src: bconsole.conf.j2
     dest: /etc/bareos/bconsole.conf
     mode: '0640'
@@ -22,7 +22,7 @@
     - restart bareos-dir service
 
 - name: Copy Bareos catalog configuration for PostgreSQL
-  template:
+  ansible.builtin.template:
     src: catalog.conf.j2
     dest: /etc/bareos/bareos-dir.d/catalog/{{ item.name }}.conf
     mode: '0640'
@@ -33,7 +33,7 @@
     - restart bareos-dir service
 
 - name: Enable packages gather facts
-  package_facts:
+  ansible.builtin.package_facts:
     manager: auto
 
 - name: Set password for Bareos Database user with sudo packages (skip if sudo isn't installed)
@@ -42,7 +42,7 @@
   become: true
   become_method: sudo
   become_user: postgres
-  postgresql_user: 
+  community.postgresql.postgresql_user: 
     db: bareos
     name: bareos
     password: "{{ item.password | mandatory }}"

@@ -1,6 +1,6 @@
 ---
 - name: Install Bareos WebUI
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     name: "{{ item }}"
     state: present
@@ -11,7 +11,7 @@
 
 - name: Configure bareos-webui console
   no_log: true
-  template:
+  ansible.builtin.template:
     src: webui.conf.j2
     dest: /etc/bareos/bareos-dir.d/console/{{ item.name }}.conf
     mode: '0640'

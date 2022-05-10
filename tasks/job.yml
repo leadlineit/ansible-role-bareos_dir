@@ -1,6 +1,6 @@
 ---
 - name: Configure bareos-dir job
-  template:
+  ansible.builtin.template:
     src: job.conf.j2
     dest: /etc/bareos/bareos-dir.d/job/{{ item.name }}.conf
     mode: '0640'

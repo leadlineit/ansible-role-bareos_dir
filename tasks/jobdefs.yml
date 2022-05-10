@@ -1,6 +1,6 @@
 ---
 - name: Configure bareos-dir jobdefs
-  template:
+  ansible.builtin.template:
     src: jobdefs.conf.j2
     dest: /etc/bareos/bareos-dir.d/jobdefs/{{ item.name }}.conf
     mode: '0640'

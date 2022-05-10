@@ -1,6 +1,6 @@
 ---
 - name: Configure bareos-dir clients
-  template:
+  ansible.builtin.template:
     src: client.conf.j2
     dest: /etc/bareos/bareos-dir.d/client/{{ item.name }}.conf
     mode: '0640'
