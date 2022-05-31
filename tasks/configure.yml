@@ -10,7 +10,7 @@
 - name: Copy Bareos Director configuration file
   ansible.builtin.template:
     src: director.conf.j2
-    dest: /etc/bareos/bareos-dir.d/director/bareos-dir.conf
+    dest: /etc/bareos/bareos-dir.d/director/{{ item.name }}.conf
     mode: '0640'
     owner: bareos
     group: bareos
