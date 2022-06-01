@@ -28,7 +28,7 @@ bareos_dir:
     - name: "{{ ansible_nodename }}"
       description: Main Bareos Director
       password: DIRAver@gEStr0ngPaSSw0rd
-      tls_enable: yes
+      tls_enable: "yes"
   bconsole:
     - name: "{{ ansible_nodename }}"
       description: Bconsole for Bareos Director
@@ -54,7 +54,7 @@ bareos_dir:
       address: ip.your.storage
       password: STORAver@gEStr0ngPaSSw0rd
       device: your-device
-      tls_enable: yes
+      tls_enable: "yes"
   pool:
     - name: your-pool
       description: Pool for backups
@@ -96,8 +96,8 @@ bareos_dir:
       description: Your client configuration
       address: 10.0.0.1
       fdport: 9102
-      passive: yes
-      tls_enable: yes
+      passive: "yes"
+      tls_enable: "yes"
       jobs:
         - name: client-job1
           description: Job1 for client

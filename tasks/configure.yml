@@ -1,11 +1,13 @@
 ---
-- name: Create tls location if that need
+- name: Create tls location
+  when: bareos_tls_path is defined
   ansible.builtin.file: 
-    path: "{{ bareos_tls_path }}"
+    path: "{{ item }}"
     state: directory
     mode: '0755'
     owner: bareos
     group: bareos
+  with_items: "{{ bareos_tls_path }}"
 
 - name: Copy Bareos Director configuration file
   ansible.builtin.template:
@@ -55,3 +57,5 @@
     name: bareos
     password: "{{ item.password | mandatory }}"
   with_items: "{{ bareos_dir.catalog }}"
+  notify:
+    - restart postgresql service

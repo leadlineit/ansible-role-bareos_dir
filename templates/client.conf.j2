@@ -1,13 +1,13 @@
 #{{ ansible_managed }}
 Client {
     Name = {{ item.name }}
+    Description = "{{ item.description | default(item.name) }}"
     Address = {{ item.address }}
     FDPort = {{ item.fdport | default("9102") }}
-    Description = "{{ item.description | default(item.name) }}"
     File Retention = 15 days
     Auto Prune = yes
     Password = "{{ item.password | default() }}"
-    Passive = "{{ item.passive | default(no) }}"
+    Passive = "{{ item.passive | default(No) }}"
 {% if item.tls_enable is defined %}    
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}
@@ -22,8 +22,8 @@ Client {
 
 Job {
     Name = "{{ j.name }}"
-    Client = {{ j.client }}
     Description = "{{ j.description | default(j.name) }}"
+    Client = {{ j.client }}
     JobDefs = {{ j.jobdef }}
     Enabled = yes
     Run Script {

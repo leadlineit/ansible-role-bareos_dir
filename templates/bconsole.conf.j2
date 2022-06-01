@@ -1,9 +1,9 @@
 #{{ ansible_managed }}
 Director {
     Name = {{ item.name }}
+    Description = "{{ item.description | default(item.name) }}"
     Address = {{ item.address | default("localhost") }}
     Password = "{{ item.password | default() }}"
-    Description = "{{ item.description | default(item.name) }}"
 {% if item.tls_enable is defined %}    
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}

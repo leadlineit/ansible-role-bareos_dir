@@ -1,8 +1,8 @@
 #{{ ansible_managed }}
 Job {
     Name = "{{ item.name }}"
-    Client = {{ item.client }}
     Description = "{{ item.description | default(item.name) }}"
+    Client = {{ item.client }}
     JobDefs = {{ item.jobdef }}
     Enabled = yes
     Run Script {

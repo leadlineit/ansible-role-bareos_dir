@@ -1,10 +1,10 @@
 #{{ ansible_managed }}
 FileSet {
     Name = {{ item.name }}
+    Description = "{{ item.description | default(item.name) }}"
 {% if item.vss is defined %}
     Enable VSS = {{ item.vss }}
 {% endif %}
-    Description = "{{ item.description | default(item.name) }}"
 {% if item.include is defined or item.plugin is defined or item.options is defined%}
     Include {
       Options {
