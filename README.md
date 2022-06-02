@@ -144,14 +144,6 @@ Variable for this:
         ttl: 96h
 ```
 
-Variable 'bareos_release' are optional.
-Default values for optional variable:
-
-```yaml
----
-bareos_release: 21
-```
-
 Dependencies
 ------------
 
