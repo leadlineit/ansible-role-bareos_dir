@@ -7,7 +7,7 @@ Client {
     File Retention = 15 days
     Auto Prune = yes
     Password = "{{ item.password | default() }}"
-    Passive = "{{ item.passive | default(No) }}"
+    Passive = "{{ item.passive | default(no) }}"
 {% if item.tls_enable is defined %}    
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}
