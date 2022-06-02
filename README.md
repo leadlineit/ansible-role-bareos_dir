@@ -34,6 +34,7 @@ bareos_dir:
       description: Bconsole for Bareos Director
       address: localhost
       password: DIRAver@gEStr0ngPaSSw0rd
+      tls_enable: "yes"
   webui:
     - name: admin_new
       password: WebUIAver@gEStr0ngPaSSw0rd1

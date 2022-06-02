@@ -4,7 +4,7 @@ Director {
     Description = "{{ item.description | default(item.name) }}"
     Address = {{ item.address | default("localhost") }}
     Password = "{{ item.password | default() }}"
-{% if item.tls_enable is defined %}    
+{% if item.tls_enable is defined %}
     TLS Enable = {{ item.tls_enable }}
     TLS Require = {{ item.tls_enable }}
     TLS CA Certificate File = {{ bareos_tls_path }}/CA.crt
