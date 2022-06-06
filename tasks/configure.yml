@@ -20,6 +20,22 @@
   notify:
     - restart bareos-dir service
 
+- name: Find unmanaged director configurations
+  ansible.builtin.find:
+    paths: /etc/bareos/bareos-dir.d/director
+    file_type: file
+    excludes: "{{ bareos_dir.director | map(attribute='name') | product(['.conf']) | map('join') | flatten }}"
+  register: fdirout
+
+- name: Remove unmanaged director configurations
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ fdirout.files | map(attribute='path') | unique }}"
+  notify:
+    - restart bareos-dir service
+
 - name: Copy Bareos bconsole configuration file
   ansible.builtin.template:
     src: bconsole.conf.j2
