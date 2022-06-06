@@ -9,3 +9,19 @@
   with_items: "{{ bareos_dir.storage }}"
   notify:
     - restart bareos-dir service
+
+- name: Find unmanaged bareos-dir storage configurations
+  ansible.builtin.find:
+    paths: /etc/bareos/bareos-dir.d/storage
+    file_type: file
+    excludes: "{{ bareos_dir.storage | map(attribute='name') | product(['.conf']) | map('join') | flatten }}"
+  register: fdirsout
+
+- name: Remove unmanaged bareos-dir storage configurations
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ fdirsout.files | map(attribute='path') | unique }}"
+  notify:
+    - restart bareos-dir service

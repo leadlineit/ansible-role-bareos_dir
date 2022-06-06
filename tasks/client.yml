@@ -9,3 +9,19 @@
   with_items: "{{ bareos_dir.client }}"
   notify:
     - restart bareos-dir service
+
+- name: Find unmanaged bareos-dir clients configurations
+  ansible.builtin.find:
+    paths: /etc/bareos/bareos-dir.d/client
+    file_type: file
+    excludes: "{{ bareos_dir.client | map(attribute='name') | product(['.conf']) | map('join') | flatten }}"
+  register: fdircout
+
+- name: Remove unmanaged bareos-dir clients configurations
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ fdircout.files | map(attribute='path') | unique }}"
+  notify:
+    - restart bareos-dir service
