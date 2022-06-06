@@ -18,7 +18,7 @@ JobDefs {
     Full Backup Pool = Full                  # write Full Backups into "Full" Pool
     Differential Backup Pool = Differential  # write Diff Backups into "Differential" Pool
     Incremental Backup Pool = Incremental    # write Incr Backups into "Incremental" Pool
-{% elif %}
+{% else %}
     Maximum Concurrent Jobs = 20
     Cancel Queued Duplicates = yes
     Max Run Time = 2d
