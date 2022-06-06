@@ -1,5 +1,16 @@
 ---
-- name: Configure bareos-dir job
+- name: Configure bareos-dir Restore job
+  ansible.builtin.template:
+    src: job_restore.conf.j2
+    dest: /etc/bareos/bareos-dir.d/job/{{ item.name }}.conf
+    mode: '0640'
+    owner: bareos
+    group: bareos
+  with_items: "{{ bareos_dir.job_restore }}"
+  notify:
+    - restart bareos-dir service
+
+- name: Configure bareos-dir jobs
   ansible.builtin.template:
     src: job.conf.j2
     dest: /etc/bareos/bareos-dir.d/job/{{ item.name }}.conf
@@ -8,4 +19,4 @@
     group: bareos
   with_items: "{{ bareos_dir.job }}"
   notify:
-    - reload bareos-dir service
+    - restart bareos-dir service

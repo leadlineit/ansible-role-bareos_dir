@@ -1,0 +1,12 @@
+#{{ ansible_managed }}
+Job {
+    Name = "{{ item.name }}"
+    Description = "{{ item.description | default(item.name) }}"
+    Type = Restore
+    Client = {{ item.client }}
+    FileSet = "LinuxAll"
+    Storage = {{ item.storage }}
+    Pool = Incremental
+    Messages = {{ item.messages | default("Standard") }}
+    Where = /tmp/bareos-restores
+}

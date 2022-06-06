@@ -70,6 +70,7 @@ bareos_dir:
     - name: your-jobdefs
       description: Jobdefs for backups
       level: Full
+      client: your-client
       fileset: your-fileset
       schedule: your-schedule
       storage: your-storage
@@ -90,11 +91,16 @@ bareos_dir:
           description: Job2 for client
           client: client.name.com
           jobdef: your-jobdefs2
+  job_restore:
+    - name: RestoreFiles
+      description: Standard Restore template. Only one such job is needed for all standard Jobs/Clients/Storage
+      client: your-client
+      storage: your-storage
   job:
     - name: client-job
       description: Job for client
-      client: client.name.com
       jobdef: your-jobdefs
+      client: client.name.com
   messages:
     - name: your-messages
       server: your-dir

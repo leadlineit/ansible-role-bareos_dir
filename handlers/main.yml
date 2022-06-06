@@ -4,11 +4,6 @@
     name: bareos-dir
     enabled: true
 
-- name: reload bareos-dir service
-  ansible.builtin.service:
-    name: bareos-dir
-    state: reloaded
-
 - name: restart bareos-dir service
   ansible.builtin.service:
     name: bareos-dir

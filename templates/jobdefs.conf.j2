@@ -1,12 +1,11 @@
 # {{ ansible_managed }}
 JobDefs {
-    Name = {{ item.name }}
+    Name = "{{ item.name }}"
     Description = "{{ item.description | default(item.name) }}"
     Type = Backup
-{% if item.level is defined %}
-    Level = {{ item.level }}
-{% else %}
-    Lavel = Full
+    Level = {{ item.level | default("Full") }}
+{% if item.client is defined %}
+    Client = {{ item.client }}
 {% endif %}
     FileSet = "{{ item.fileset }}"
     Schedule = "{{ item.schedule }}"
@@ -15,8 +14,14 @@ JobDefs {
     Pool = {{ item.pool }}
     Priority = 10
     Write Bootstrap = "/var/lib/bareos/%c.bsr"
+{% if item.name ==  'DefaultJob' %}
+    Full Backup Pool = Full                  # write Full Backups into "Full" Pool
+    Differential Backup Pool = Differential  # write Diff Backups into "Differential" Pool
+    Incremental Backup Pool = Incremental    # write Incr Backups into "Incremental" Pool
+{% elif %}
     Maximum Concurrent Jobs = 20
     Cancel Queued Duplicates = yes
     Max Run Time = 2d
     Max Wait Time = 24h
+{% endif %}
 }

@@ -2,8 +2,8 @@
 Job {
     Name = "{{ item.name }}"
     Description = "{{ item.description | default(item.name) }}"
-    Client = {{ item.client }}
     JobDefs = {{ item.jobdef }}
+    Client = {{ item.client }}
     Enabled = yes
     Run Script {
        Console = ".bvfs_update jobid=%i"
