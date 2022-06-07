@@ -76,7 +76,7 @@
   notify:
     - restart postgresql service
 
-- name: Grant privileges for db user to Bareos Database
+- name: Grant privileges to tables for Bareos DB user
   become: true
   become_method: su
   become_user: postgres
