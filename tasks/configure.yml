@@ -75,3 +75,10 @@
   with_items: "{{ bareos_dir.catalog }}"
   notify:
     - restart postgresql service
+
+- name: Grant privileges for db user to Bareos Database
+  become: true
+  become_method: su
+  become_user: postgres
+  ansible.builtin.command: sh /usr/lib/bareos/scripts/grant_bareos_privileges
+  changed_when: false
