@@ -128,7 +128,7 @@ bareos_dir:
 The variables above are optional. They don't have a default value, so if you don't define them - tasks using them will be skipped. 
 You can set only some of them, or not set at all (in this case, you will simply install Bareos Storage with default configuration). 
 
-Also you cah use HashiCorp Vault for store certificates (when you use Bareos with TLS)
+Also you can use HashiCorp Vault for store certificates (when you use Bareos with TLS)
 Variable for this:
 
 ```yaml
