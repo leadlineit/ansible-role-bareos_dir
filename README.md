@@ -104,7 +104,8 @@ bareos_dir:
         - name: client-job1
           description: Job1 for client
           client: client.name.com
-          jobdef: your-jobdefs1
+          pool: your-pool
+          schedule: your-schedule
         - name: client-job2
           description: Job2 for client
           client: client.name.com

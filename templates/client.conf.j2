@@ -24,7 +24,15 @@ Job {
     Name = "{{ j.name }}"
     Description = "{{ j.description | default(j.name) }}"
     Client = {{ j.client }}
+    {% if item.j.pool is defined %}
+    Pool = {{ j.pool }}
+    {% endif %}
+    {% if item.j.schedule is defined %}
+    Schedule = {{ j.schedule }}
+    {% endif %}
+    {% if item.j.jobdef is defined %}
     JobDefs = {{ j.jobdef }}
+    {% endif %}
     Enabled = yes
     Run Script {
        Console = ".bvfs_update jobid=%i"
