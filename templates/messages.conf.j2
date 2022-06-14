@@ -1,6 +1,26 @@
 #{{ ansible_managed }}
 Messages {
     Name = {{ item.name }}
-    Description = "Send all messages to the {{ item.server }} Director."
-    Director = {{ item.server }} = all
+    Description = "{{ item.description | default(item.name) }}"
+{% if item.mailcommandis defined %}
+    Mail Command = "{{ item.mailcommand }}"
+{% endif %}
+{% if item.mail is defined %}
+    Mail = {{ item.mail }}
+{% endif %}
+{% if item.operatorcommand is defined %}
+    Operator Command = "{{ item.operatorcommand }}"
+{% endif %}
+{% if item.operator is defined %}
+    Operator = {{ item.operator }}
+{% endif %}
+{% if item.console is defined %}
+    Console = {{ item.console }}
+{% endif %}
+{% if item.append is defined %}
+    Append = {{ item.append }}
+{% endif %}
+{% if item.catalog is defined %}
+    Catalog = {{ item.catalog }}
+{% endif %}
 }

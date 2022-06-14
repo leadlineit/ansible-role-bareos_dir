@@ -109,7 +109,9 @@ bareos_dir:
         - name: client-job2
           description: Job2 for client
           client: client.name.com
-          jobdef: your-jobdefs2
+          pool: your-pool
+          fileset: "your-fileset"
+          schedule: "your-schedule"
   job_restore:
     - name: RestoreFiles
       description: Standard Restore template. Only one such job is needed for all standard Jobs/Clients/Storage
@@ -123,7 +125,14 @@ bareos_dir:
       client: client.name.com
   messages:
     - name: your-messages
-      server: your-dir
+      description: Your messages for something
+      mailcommand: '/usr/sbin/bsmtp -h mail.example.com  -f \"\(Bareos\) %r\" -s \"Bareos: %t %e of %c %l\" %r'
+      mail: backupoperator@example.com = all, !skipped, !terminate
+      operatorcommand: '/usr/sbin/bsmtp -h mail.example.com -f \"\(Bareos\) %r\" -s \"Bareos: Intervention needed for %j\" %r'
+      operator: backupoperator@example.com = mount
+      console: all, !skipped, !saved
+      append: '"/var/log/bareos/bareos.log" = all, !skipped, !terminate'
+      catalog: all, !skipped, !saved, !audit
 ```
 
 The variables above are optional. They don't have a default value, so if you don't define them - tasks using them will be skipped. 

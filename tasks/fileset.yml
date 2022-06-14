@@ -1,5 +1,6 @@
 ---
 - name: Configure bareos-dir fileset
+  no_log: true
   ansible.builtin.template:
     src: fileset.conf.j2
     dest: /etc/bareos/bareos-dir.d/fileset/{{ item.name }}.conf
