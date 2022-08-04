@@ -19,7 +19,7 @@ JobDefs {
     Differential Backup Pool = Differential  # write Diff Backups into "Differential" Pool
     Incremental Backup Pool = Incremental    # write Incr Backups into "Incremental" Pool
 {% else %}
-    Maximum Concurrent Jobs = 20
+    Maximum Concurrent Jobs = {{ item.max_jobs | default("20") }}
     Cancel Queued Duplicates = yes
     Max Run Time = 2d
     Max Wait Time = 24h

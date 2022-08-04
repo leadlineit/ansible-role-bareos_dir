@@ -4,6 +4,7 @@ Client {
     Description = "{{ item.description | default(item.name) }}"
     Address = {{ item.address }}
     FDPort = {{ item.fdport | default("9102") }}
+    Maximum Concurrent Jobs = {{ item.max_jobs | default("20") }}
     File Retention = 15 days
     Auto Prune = yes
     Password = "{{ item.password | default() }}"

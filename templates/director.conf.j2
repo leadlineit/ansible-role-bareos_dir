@@ -3,7 +3,7 @@ Director {
     Name = {{ item.name }}
     Description = "{{ item.description | default(item.name) }}"
     QueryFile = "/usr/lib/bareos/scripts/query.sql"
-    Maximum Concurrent Jobs = 20
+    Maximum Concurrent Jobs = {{ item.max_jobs | default("20") }}
     Password = "{{ item.password | default() }}"
     Messages = Daemon
     Auditing = yes

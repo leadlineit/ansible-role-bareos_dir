@@ -2,6 +2,7 @@
 Storage {
     Name = {{ item.name }}
     Description = "{{ item.description | default(item.name) }}"
+    Maximum Concurrent Jobs = {{ item.max_jobs | default("20") }}
     Address = {{ item.address }}
     Password = "{{ item.password | default() }}"
     Device = {{ item.device }}

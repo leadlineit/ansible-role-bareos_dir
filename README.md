@@ -27,6 +27,7 @@ bareos_dir:
   director: 
     - name: "{{ ansible_nodename }}"
       description: Main Bareos Director
+      max_jobs: 20
       password: DIRAver@gEStr0ngPaSSw0rd
       tls_enable: "yes"
   bconsole:
@@ -52,6 +53,7 @@ bareos_dir:
   storage:
     - name: your-storage
       description: Your Bareos Storage
+      max_jobs: 20
       address: ip.your.storage
       password: STORAver@gEStr0ngPaSSw0rd
       device: your-device
@@ -87,6 +89,7 @@ bareos_dir:
   jobdefs:
     - name: your-jobdefs
       description: Jobdefs for backups
+      max_jobs: 20
       level: Full
       client: your-client
       fileset: your-fileset
