@@ -16,7 +16,7 @@ galaxy_info:
     - debian
     - backup
     - bareos
-    - director
+    - bareos-dir
   dependencies:
     - role: leadlineit.postgresql
       tags: postgresql
