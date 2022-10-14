@@ -8,7 +8,7 @@
     group: bareos
   with_items: "{{ bareos_dir.job_restore }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service
 
 - name: Configure bareos-dir jobs
   ansible.builtin.template:
@@ -19,4 +19,4 @@
     group: bareos
   with_items: "{{ bareos_dir.job }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service

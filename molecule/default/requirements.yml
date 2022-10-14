@@ -1,2 +1,4 @@
 ---
-- role: leadlineit.postgresql
+roles:
+  - name: leadlineit.postgresql
+    version: master

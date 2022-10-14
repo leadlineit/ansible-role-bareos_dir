@@ -18,7 +18,7 @@
     group: bareos
   with_items: "{{ bareos_dir.director }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service
 
 - name: Find unmanaged director configurations
   ansible.builtin.find:
@@ -34,7 +34,7 @@
   with_items:
     - "{{ fdirout.files | map(attribute='path') | unique }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service
 
 - name: Copy Bareos bconsole configuration file
   ansible.builtin.template:
@@ -45,7 +45,7 @@
     group: bareos
   with_items: "{{ bareos_dir.bconsole }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service
 
 - name: Copy Bareos catalog configuration for PostgreSQL
   ansible.builtin.template:
@@ -56,7 +56,7 @@
     group: bareos
   with_items: "{{ bareos_dir.catalog }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service
 
 - name: Enable packages gather facts
   ansible.builtin.package_facts:
@@ -64,7 +64,7 @@
 
 - name: Set password for Bareos Database user with sudo packages (skip if sudo isn't installed)
   when: "'sudo' in ansible_facts.packages"
-  no_log: true
+  # no_log: true
   become: true
   become_method: sudo
   become_user: postgres
@@ -74,7 +74,7 @@
     password: "{{ item.password | mandatory }}"
   with_items: "{{ bareos_dir.catalog }}"
   notify:
-    - restart postgresql service
+    - Restart postgresql service
 
 - name: Grant privileges to tables for Bareos DB user
   become: true

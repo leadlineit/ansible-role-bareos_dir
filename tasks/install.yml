@@ -33,5 +33,5 @@
     - bareos-director
     - bareos-bconsole
   notify:
-    - enable bareos-dir service
-    - restart bareos-dir service
+    - Enable bareos-dir service
+    - Restart bareos-dir service

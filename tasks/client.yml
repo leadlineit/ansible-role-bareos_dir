@@ -8,7 +8,7 @@
     group: bareos
   with_items: "{{ bareos_dir.client }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service
 
 # - name: Find unmanaged bareos-dir clients configurations
 #   ansible.builtin.find:
@@ -24,4 +24,4 @@
 #   with_items:
 #     - "{{ fdircout.files | map(attribute='path') | unique }}"
 #   notify:
-#     - restart bareos-dir service
+#     - Restart bareos-dir service

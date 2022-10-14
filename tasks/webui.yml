@@ -7,7 +7,7 @@
   with_items:
     - bareos-webui
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service
 
 - name: Configure bareos-webui console
   no_log: true
@@ -19,4 +19,4 @@
     group: bareos
   with_items: "{{ bareos_dir.webui }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service

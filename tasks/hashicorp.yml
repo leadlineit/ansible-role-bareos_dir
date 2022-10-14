@@ -11,7 +11,7 @@
 
 - name: Create list for status codes
   ansible.builtin.set_fact:
-    stat_list: "{{ stat_list | default([]) + [ { 'cname': item.item.name, 'status': item.status_code, 'client': item.item.client, 'role': item.item.role, 'ttl': item.item.ttl } ] }}"
+    stat_list: "{{ stat_list | default([]) + [{'cname': item.item.name, 'status': item.status_code, 'client': item.item.client, 'role': item.item.role, 'ttl': item.item.ttl}] }}"
   with_items: "{{ cnout.results }}"
   loop_control:
     label: 
@@ -36,7 +36,7 @@
 
 - name: Create list for serial keys
   ansible.builtin.set_fact:
-    cert_list: "{{ cert_list | default([]) + [ { 'cname': item.item.cname, 'status': item.item.status, 'client': item.item.client, 'ttl': item.item.ttl, 'serial_number': item.json.data.serial_number, 'certificate': item.json.data.certificate, 'priv_key': item.json.data.private_key } ] }}"
+    cert_list: "{{ cert_list | default([]) + [{'cname': item.item.cname, 'status': item.item.status, 'client': item.item.client, 'ttl': item.item.ttl, 'serial_number': item.json.data.serial_number, 'certificate': item.json.data.certificate, 'priv_key': item.json.data.private_key}] }}"
   when: item.item.status == 404
   with_items: "{{ output.results }}"
   loop_control:

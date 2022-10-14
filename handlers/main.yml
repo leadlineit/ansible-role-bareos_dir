@@ -1,15 +1,15 @@
 ---
-- name: enable bareos-dir service
+- name: Enable bareos-dir service
   ansible.builtin.service:
     name: bareos-dir
     enabled: true
 
-- name: restart bareos-dir service
+- name: Restart bareos-dir service
   ansible.builtin.service:
     name: bareos-dir
     state: restarted
 
-- name: restart postgresql service
+- name: Restart postgresql service
   ansible.builtin.service:
     name: postgresql
     state: restarted

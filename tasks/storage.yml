@@ -8,7 +8,7 @@
     group: bareos
   with_items: "{{ bareos_dir.storage }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service
 
 - name: Find unmanaged bareos-dir storage configurations
   ansible.builtin.find:
@@ -24,4 +24,4 @@
   with_items:
     - "{{ fdirsout.files | map(attribute='path') | unique }}"
   notify:
-    - restart bareos-dir service
+    - Restart bareos-dir service
